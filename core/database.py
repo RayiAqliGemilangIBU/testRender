@@ -5,13 +5,15 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from core.config import settings  # Impor settings dari config.py
 
-# Mengambil URL dari config
 DATABASE_URL = settings.DATABASE_URL
 
 engine = create_engine(
     DATABASE_URL,
-    # WAJIB: Aiven MySQL memerlukan SSL agar koneksi tidak ditolak
-    connect_args={"ssl": {"ssl_mode": "REQUIRED"}}
+    connect_args={
+        "ssl": {
+            "ssl_mode": "REQUIRED"
+        }
+    }
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
